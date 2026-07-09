@@ -1156,10 +1156,56 @@ footer {
     .research-card h3 {
         font-size: 18px;
     }
-    
+
     .research-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
+    }
+}
+
+/* Resume Section */
+.resume-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.resume-viewer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.resume-page {
+    display: block;
+    max-width: 100%;
+    border-radius: 6px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.resume-loading {
+    color: #cccccc;
+    font-size: 15px;
+    padding: 60px 0;
+}
+
+@media (max-width: 768px) {
+    .resume-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .resume-viewer {
+        padding: 12px;
+        gap: 16px;
     }
 }
