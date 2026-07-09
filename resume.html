@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radhakrishna Dasari - Honest Pursuits</title>
-    
+    <title>Resume - Radhakrishna Dasari</title>
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://drw3rk.tech/">
-    <meta property="og:title" content="Radhakrishna Dasari - Honest Pursuits">
-    <meta property="og:description" content="Lifelong learner and passionate educator at the intersection of Blockchain and AI, committed to restoring trust and transparency.">
+    <meta property="og:url" content="https://drw3rk.tech/resume">
+    <meta property="og:title" content="Resume - Radhakrishna Dasari">
+    <meta property="og:description" content="Resume of Radhakrishna Dasari - Computer Science, Blockchain, and AI.">
     <meta property="og:image" content="https://i.ibb.co/wFdrYWt7/35-DE6-FE0-0-D33-44-B1-A8-FE-53-DB2-E9-A4-DB9.jpg">
-    
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://drw3rk.tech/">
-    <meta property="twitter:title" content="Radhakrishna Dasari - Honest Pursuits">
-    <meta property="twitter:description" content="Lifelong learner and passionate educator at the intersection of Blockchain and AI, committed to restoring trust and transparency.">
+    <meta property="twitter:url" content="https://drw3rk.tech/resume">
+    <meta property="twitter:title" content="Resume - Radhakrishna Dasari">
+    <meta property="twitter:description" content="Resume of Radhakrishna Dasari - Computer Science, Blockchain, and AI.">
     <meta property="twitter:image" content="https://i.ibb.co/wFdrYWt7/35-DE6-FE0-0-D33-44-B1-A8-FE-53-DB2-E9-A4-DB9.jpg">
     <meta property="twitter:site" content="@DrW3RK">
     <meta property="twitter:creator" content="@DrW3RK">
-    
+
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -30,40 +30,39 @@
         <div class="nav-container">
             <div class="logo"><a href="/">DrW3RK.tech</a></div>
             <ul class="nav-links">
-                <li><a href="/" class="nav-item active">Home</a></li>
+                <li><a href="/" class="nav-item">Home</a></li>
                 <li><a href="/work" class="nav-item">Work</a></li>
                 <li><a href="/talks" class="nav-item">Talks</a></li>
                 <li><a href="/research" class="nav-item">Research</a></li>
                 <li><a href="/life" class="nav-item">Life</a></li>
-                <li><a href="/resume" class="nav-item">Resume</a></li>
+                <li><a href="/resume" class="nav-item active">Resume</a></li>
             </ul>
         </div>
     </nav>
 
     <!-- Main Content -->
     <main>
-        <!-- Home Section -->
-        <section id="Home" class="active">
-            <div class="hero">
-                <div class="hero-content">
-                    <h1>Hey, I'm Radha</h1>
-                    <h3>I like authenticity and authentic people</h3>
-                    <br>
-                    <p>I am a lifelong learner and a passionate educator with expertise in computer science, programming, research, and development. A strong proponent of open source.</p>
-                        
-                    <p>As a working professional with experience in Blockchain and AI, I am deeply committed to restoring trust and transparency in our increasingly AI-powered world.</p>
-                    <div class="cta-buttons">
-                        <a href="/work"><button class="btn btn-primary">View my work</button></a>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <img src="https://i.ibb.co/27Z7Vwfb/AI-SLOP.jpg" alt="Radha Profile">
-                </div>
+        <!-- Resume Section -->
+        <section id="Resume" class="active">
+
+            <div class="resume-header">
+                <h1 style="font-size: 40px; margin-bottom: 10px; color: #fff;">Resume</h1>
+                <a class="btn btn-secondary" href="files/Radha-Resume-Public.pdf" download>Download PDF</a>
             </div>
+
+            <div class="resume-viewer" id="resume-viewer" data-pdf-url="files/Radha-Resume-Public.pdf">
+                <div class="resume-loading" id="resume-loading">Loading resume&hellip;</div>
+            </div>
+
+            <noscript>
+                <p style="color: #cccccc; margin-top: 20px;">
+                    Enable JavaScript to view the resume inline, or
+                    <a href="files/Radha-Resume-Public.pdf">download the PDF</a> directly.
+                </p>
+            </noscript>
+
         </section>
     </main>
-
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
     <!-- Footer -->
     <footer>
@@ -85,28 +84,14 @@
                     </svg>
                 </a>
             </div>
-            
-            <a href="https://dashboard.simpleanalytics.com/drw3rk.tech?utm_source=drw3rk.tech&utm_content=badge&affiliate=tegab" 
-               referrerpolicy="origin" 
-               target="_blank" 
-               class="analytics-badge"
-               aria-label="View analytics on Simple Analytics">
-                <picture>
-                    <source srcset="https://simpleanalyticsbadges.com/drw3rk.tech?logo=white" media="(prefers-color-scheme: dark)" />
-                    <img src="https://simpleanalyticsbadges.com/drw3rk.tech?logo=black" 
-                         loading="lazy" 
-                         referrerpolicy="no-referrer" 
-                         crossorigin="anonymous" 
-                         alt="Simple Analytics Badge" />
-                </picture>
-            </a>
-            
-            <p class="copyright">&copy; 2025 Radhakrishna Dasari.</p>
+            <p>&copy; 2025 Radhakrishna Dasari.</p>
         </div>
     </footer>
 
     <script src="polkadots.js"></script>
     <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="resume.js"></script>
     <!-- 100% privacy-first analytics -->
     <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
 

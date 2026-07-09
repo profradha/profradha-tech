@@ -52,6 +52,11 @@ function setupKeyboardShortcuts() {
                 e.preventDefault();
                 window.location.href = '/life';
             }
+            // Alt + R for resume
+            else if (e.altKey && e.key === 'r') {
+                e.preventDefault();
+                window.location.href = '/resume';
+            }
         } catch (error) {
             console.error('Error handling keyboard shortcut:', error);
         }
