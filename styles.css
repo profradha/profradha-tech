@@ -71,12 +71,21 @@ nav {
     color: #888888;
     font-weight: 500;
     cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: color 0.25s ease, background 0.25s ease, text-shadow 0.25s ease;
+}
+
+.nav-links a:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
 }
 
 .nav-links a.active {
     color: #ffffff;
     border-bottom: 2px solid #ffffff;
-    padding-bottom: 2px;
+    padding-bottom: 4px;
 }
 
 /* Main Content */
