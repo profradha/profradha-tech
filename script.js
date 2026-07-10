@@ -28,6 +28,58 @@ function updateActiveNavLink() {
     }
 }
 
+// Mobile nav toggle
+function setupMobileNav() {
+    try {
+        const toggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        if (!toggle || !navLinks) return;
+
+        function closeMenu() {
+            navLinks.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
+        }
+
+        function openMenu() {
+            navLinks.classList.add('open');
+            toggle.setAttribute('aria-expanded', 'true');
+        }
+
+        toggle.addEventListener('click', () => {
+            const isOpen = navLinks.classList.contains('open');
+            if (isOpen) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+
+        // Close menu when a nav link is clicked
+        navLinks.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Close menu when clicking outside of it
+        document.addEventListener('click', (e) => {
+            if (!navLinks.classList.contains('open')) return;
+            if (navLinks.contains(e.target) || toggle.contains(e.target)) return;
+            closeMenu();
+        });
+
+        // Close menu on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeMenu();
+        });
+
+        // Close menu if resized back to desktop width
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) closeMenu();
+        });
+    } catch (error) {
+        console.error('Error setting up mobile nav:', error);
+    }
+}
+
 // Keyboard shortcuts
 function setupKeyboardShortcuts() {
     document.addEventListener('keydown', (e) => {
@@ -268,6 +320,7 @@ function setupCarousel() {
 // Initialize all functionality when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     updateActiveNavLink();
+    setupMobileNav();
     setupKeyboardShortcuts();
     setupSmoothScroll();
     trackPageView();
