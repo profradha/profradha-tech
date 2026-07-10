@@ -157,14 +157,22 @@ function trackPageView() {
 // Carousel functionality with thumbnail support
 function setupCarousel() {
     try {
-        const carousel = document.querySelector('.carousel');
-        if (!carousel) return; // Exit if carousel doesn't exist on this page
-        
-        const slides = document.querySelectorAll('.carousel-slide');
-        const prevBtn = document.querySelector('.carousel-prev');
-        const nextBtn = document.querySelector('.carousel-next');
-        let thumbnails = document.querySelectorAll('.thumbnail');
-        
+        document.querySelectorAll('.carousel-container').forEach(initCarousel);
+    } catch (error) {
+        console.error('Error setting up carousel:', error);
+    }
+}
+
+function initCarousel(carouselContainer) {
+    try {
+        const carousel = carouselContainer.querySelector('.carousel');
+        if (!carousel) return; // Exit if carousel doesn't exist in this container
+
+        const slides = carousel.querySelectorAll('.carousel-slide');
+        const prevBtn = carousel.querySelector('.carousel-prev');
+        const nextBtn = carousel.querySelector('.carousel-next');
+        let thumbnails = carouselContainer.querySelectorAll('.thumbnail');
+
         if (slides.length === 0) return;
         
         let currentSlide = 0;
@@ -173,7 +181,7 @@ function setupCarousel() {
         
         // Create thumbnails if they don't exist
         if (thumbnails.length === 0) {
-            const thumbnailContainer = document.querySelector('.carousel-thumbnails');
+            const thumbnailContainer = carouselContainer.querySelector('.carousel-thumbnails');
             if (thumbnailContainer) {
                 slides.forEach((slide, index) => {
                     const img = slide.querySelector('img');
@@ -191,7 +199,7 @@ function setupCarousel() {
                         thumbnailContainer.appendChild(thumbnail);
                     }
                 });
-                thumbnails = document.querySelectorAll('.thumbnail');
+                thumbnails = carouselContainer.querySelectorAll('.thumbnail');
             }
         }
         
@@ -287,12 +295,14 @@ function setupCarousel() {
             });
         });
         
-        // Keyboard navigation for carousel
+        // Keyboard navigation for carousel (only when this carousel is hovered)
+        let isHovered = false;
+        carouselContainer.addEventListener('mouseenter', () => { isHovered = true; });
+        carouselContainer.addEventListener('mouseleave', () => { isHovered = false; });
+
         document.addEventListener('keydown', (e) => {
-            // Only handle arrow keys if carousel exists and is visible
-            const carouselContainer = document.querySelector('.carousel-container');
-            if (!carouselContainer) return;
-            
+            if (!isHovered) return;
+
             if (e.key === 'ArrowLeft') {
                 prevSlide();
                 restartAutoPlay();
@@ -301,14 +311,11 @@ function setupCarousel() {
                 restartAutoPlay();
             }
         });
-        
+
         // Pause auto play on hover
-        const carouselContainer = document.querySelector('.carousel-container');
-        if (carouselContainer) {
-            carouselContainer.addEventListener('mouseenter', stopAutoPlay);
-            carouselContainer.addEventListener('mouseleave', startAutoPlay);
-        }
-        
+        carouselContainer.addEventListener('mouseenter', stopAutoPlay);
+        carouselContainer.addEventListener('mouseleave', startAutoPlay);
+
         // Start auto play
         startAutoPlay();
         
