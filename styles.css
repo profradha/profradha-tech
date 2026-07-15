@@ -152,6 +152,95 @@ section.active {
     }
 }
 
+/* Shareable section headings */
+.shareable-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    scroll-margin-top: 90px;
+}
+
+.section-link-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: #888888;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.shareable-heading:hover .section-link-btn,
+.section-link-btn:focus-visible,
+.section-link-btn.copied {
+    opacity: 1;
+}
+
+.section-link-btn:hover,
+.section-link-btn:focus-visible {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.section-link-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.section-link-btn .check-icon {
+    display: none;
+}
+
+.section-link-btn.copied .link-icon {
+    display: none;
+}
+
+.section-link-btn.copied .check-icon {
+    display: block;
+}
+
+.section-link-btn .copy-feedback {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-4px);
+    margin-bottom: 4px;
+    background: #ffffff;
+    color: #000000;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    padding: 5px 9px;
+    border-radius: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.section-link-btn.copied .copy-feedback {
+    opacity: 1;
+}
+
+@media (hover: none) {
+    .section-link-btn {
+        opacity: 0.55;
+    }
+}
+
 /* Research Hero Image */
 .research-hero {
     width: 100%;
@@ -1109,10 +1198,52 @@ footer {
         width: 50px;
         height: 38px;
     }
-    
+
     .carousel-thumbnails {
         gap: 6px;
         margin-top: 10px;
+    }
+}
+
+/* YouTube Shorts row */
+.shorts-row {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.shorts-row .short-item {
+    position: relative;
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 240px;
+    aspect-ratio: 9 / 16;
+}
+
+.shorts-row .short-item iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+    .shorts-row {
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .shorts-row {
+        gap: 8px;
     }
 }
 
