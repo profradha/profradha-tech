@@ -144,6 +144,118 @@ function setupSmoothScroll() {
     }
 }
 
+// Turn heading text into a URL-friendly slug
+function slugify(text) {
+    return (text || '')
+        .toString()
+        .trim()
+        .toLowerCase()
+        .replace(/['"]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+}
+
+// Copy text to the clipboard, with a fallback for non-secure contexts
+function copyTextToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text);
+    }
+
+    return new Promise((resolve, reject) => {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        try {
+            document.execCommand('copy');
+            resolve();
+        } catch (error) {
+            reject(error);
+        } finally {
+            document.body.removeChild(textarea);
+        }
+    });
+}
+
+// Give every section heading a stable id and a button to copy a deep link to it
+function setupSectionShareLinks() {
+    try {
+        const headings = document.querySelectorAll('main h1');
+        const usedIds = new Set();
+
+        headings.forEach((heading) => {
+            const label = heading.textContent.trim();
+            let id = heading.id;
+
+            if (!id) {
+                const base = slugify(label) || 'section';
+                let candidate = base;
+                let suffix = 2;
+                while (usedIds.has(candidate) || document.getElementById(candidate)) {
+                    candidate = `${base}-${suffix++}`;
+                }
+                id = candidate;
+                heading.id = id;
+            }
+            usedIds.add(id);
+
+            heading.classList.add('shareable-heading');
+
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'section-link-btn';
+            button.setAttribute('aria-label', `Copy link to "${label}" section`);
+            button.innerHTML = `
+                <svg class="link-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07l-1.5 1.5"></path>
+                    <path d="M14 11a5 5 0 0 0-7.07 0l-2.83 2.83a5 5 0 0 0 7.07 7.07l1.5-1.5"></path>
+                </svg>
+                <svg class="check-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 6L9 17l-5-5"></path>
+                </svg>
+                <span class="copy-feedback" aria-live="polite">Link copied!</span>
+            `;
+
+            button.addEventListener('click', () => {
+                const url = `${window.location.origin}${window.location.pathname}#${id}`;
+                copyTextToClipboard(url)
+                    .then(() => {
+                        button.classList.add('copied');
+                        clearTimeout(button._copyTimeout);
+                        button._copyTimeout = setTimeout(() => {
+                            button.classList.remove('copied');
+                        }, 1600);
+                    })
+                    .catch((error) => {
+                        console.error('Error copying section link:', error);
+                    });
+            });
+
+            heading.appendChild(button);
+        });
+    } catch (error) {
+        console.error('Error setting up section share links:', error);
+    }
+}
+
+// Scroll to the section named in the URL hash, once headings have ids
+function scrollToHashSection() {
+    try {
+        if (!window.location.hash) return;
+        const id = decodeURIComponent(window.location.hash.slice(1));
+        const target = document.getElementById(id);
+        if (!target) return;
+        requestAnimationFrame(() => {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    } catch (error) {
+        console.error('Error scrolling to section:', error);
+    }
+}
+
 // Track page views (simple analytics)
 function trackPageView() {
     try {
@@ -332,4 +444,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setupSmoothScroll();
     trackPageView();
     setupCarousel();
+    setupSectionShareLinks();
+    scrollToHashSection();
 });
